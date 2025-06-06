@@ -1,0 +1,210 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>NetflixPro - Gagnez de l'argent</title>
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Segoe UI', sans-serif;
+      background-color: #0f0f0f;
+      color: #fff;
+    }
+
+    .logo {
+      text-align: center;
+      font-size: 32px;
+      background: #e50914;
+      padding: 15px 0;
+      margin: 0;
+      font-family: 'Georgia', serif;
+      color: white;
+    }
+
+    header {
+      background-color: #151515;
+      display: flex;
+      justify-content: center;
+      gap: 30px;
+      padding: 15px 10px;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+      box-shadow: 0 2px 10px rgba(0, 0, 0, 0.6);
+    }
+
+    nav a {
+      color: #fff;
+      text-decoration: none;
+      font-weight: bold;
+      font-size: 16px;
+      transition: all 0.3s ease;
+    }
+
+    nav a:hover {
+      color: #e50914;
+      transform: scale(1.05);
+    }
+
+    section {
+      padding: 25px 20px;
+      max-width: 900px;
+      margin: auto;
+    }
+
+    .card {
+      background-color: #1e1e1e;
+      border-radius: 12px;
+      padding: 20px;
+      box-shadow: 0 0 12px #e50914;
+      margin-bottom: 30px;
+    }
+
+    .card h2, .card h3 {
+      margin-top: 0;
+    }
+
+    .btn {
+      background-color: #e50914;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      padding: 10px 20px;
+      margin: 8px 5px 0 0;
+      cursor: pointer;
+      font-weight: bold;
+      transition: background 0.3s;
+    }
+
+    .btn:hover {
+      background-color: #b20710;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 15px;
+    }
+
+    th, td {
+      padding: 12px;
+      border: 1px solid #444;
+      text-align: center;
+    }
+
+    th {
+      background-color: #e50914;
+      color: white;
+    }
+
+    .task-box {
+      border: 2px dashed #e50914;
+      background-color: #151515;
+      border-radius: 10px;
+      padding: 20px;
+      text-align: center;
+    }
+
+    #solde {
+      font-size: 28px;
+      font-weight: bold;
+      color: #4caf50;
+      transition: all 0.5s ease-in-out;
+      border-radius: 10px;
+    }
+  </style>
+</head>
+<body>
+  <h1 class="logo">🎬 NetflixPro</h1>
+
+  <header>
+    <nav>
+      <a href="#accueil">🏠 Accueil</a>
+      <a href="#taches">📝 Tâches</a>
+      <a href="#solde">💰 Solde</a>
+    </nav>
+  </header>
+
+  <section id="accueil">
+    <div class="card">
+      <h2>Bienvenue sur <span style="color:#e50914">NetflixPro</span></h2>
+      <p>Effectuez des micro-tâches simples et gagnez de l'argent en temps réel !</p>
+      <div>
+        <button class="btn">💲 Recharger</button>
+        <button class="btn">🔂 Retrait</button>
+        <button class="btn">📋 Historique</button>
+        <button class="btn">🧭 Inviter</button>
+      </div>
+    </div>
+
+    <div class="card">
+      <h3>👑 Niveaux VIP</h3>
+      <table>
+        <tr><th>VIP</th><th>Dépôt (Ar)</th><th>Gain (Ar)</th></tr>
+        <tr><td>VIP0</td><td>0</td><td>2 000</td></tr>
+        <tr><td>VIP1</td><td>10 000</td><td>4 000</td></tr>
+        <tr><td>VIP2</td><td>20 000</td><td>9 000</td></tr>
+        <tr><td>VIP3</td><td>50 000</td><td>25 000</td></tr>
+        <tr><td>VIP4</td><td>100 000</td><td>60 000</td></tr>
+        <tr><td>VIP5</td><td>200 000</td><td>150 000</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section id="taches">
+    <div class="card">
+      <h2>📝 Tâches disponibles</h2>
+      <div class="task-box">
+        <h3>🎬 Tâche NetflixPro</h3>
+        <p>Complétez une tâche et gagnez instantanément 200 Ar.</p>
+        <button class="btn" onclick="faireTache()">Faire</button>
+      </div>
+      <p style="margin-top:15px; color: #ccc;">⚠️ Maximum : 10 tâches par jour. Intervalle minimum : 2 minutes entre chaque tâche.</p>
+    </div>
+  </section>
+
+  <section id="solde">
+    <div class="card">
+      <h2>💰 Solde actuel</h2>
+      <p id="solde">0 Ar</p>
+    </div>
+  </section>
+
+  <script>
+    let solde = 0;
+    let nbTaches = 0;
+    let dernierTache = 0;
+
+    function faireTache() {
+      const maintenant = Date.now();
+
+      if (nbTaches >= 10) {
+        alert("🚫 Vous avez atteint la limite de 10 tâches pour aujourd'hui.");
+        return;
+      }
+
+      if (maintenant - dernierTache < 120000) {
+        const reste = Math.ceil((120000 - (maintenant - dernierTache)) / 1000);
+        alert(`⏱️ Veuillez patienter encore ${reste} secondes.`);
+        return;
+      }
+
+      solde += 200;
+      nbTaches++;
+      dernierTache = maintenant;
+
+      const soldeEl = document.getElementById("solde");
+      soldeEl.textContent = solde + " Ar";
+      soldeEl.style.color = "#4caf50";
+      soldeEl.style.transform = "scale(1.1)";
+      setTimeout(() => {
+        soldeEl.style.transform = "scale(1)";
+        soldeEl.style.color = "#4caf50";
+      }, 300);
+
+      alert("✅ +200 Ar ajouté à votre solde !");
+    }
+  </script>
+</body>
+</html>
